@@ -1,21 +1,67 @@
 version: 2.1
-jobs: 
+jobs:
   build:
     docker:
-      - image: cimg/base:stable
-    resource_class: small
+      - image: cimg/ruby:3.0.2
     steps:
       - checkout
-      - run: cat ./hello.txt
+      - run: mkdir -p my_workspace
+      - run: echo "Hello World" > my_workspace/echo-output
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: my_workspace
+          # Must be relative path from root
+          paths:
+            - echo-output      
+  testa:
+    docker:
+      - image: cimg/ruby:3.0.2
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: my_workspace
+
+      - run: cat my_workspace/echo-output
+          
+  testb:
+    docker:
+      - image: cimg/ruby:3.0.2
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: my_workspace
+
       - run: |
-          if [[ $(cat hello.txt) == "Hi?"" ]];
-          then
+          # this will fail intentionally, we'll use SSH to debug and fix
+          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
             echo "It worked!";
           else
             echo "Nope!"; exit 1
-          fi 
-workflows:
-  main-workflow:
-    jobs:
-      - build 
+          fi   
           
+  deploy:
+    docker:
+      - image: cimg/ruby:3.0.2
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: my_workspace
+
+      - run: |
+          echo "Deploying message!"
+          cat my_workspace/echo-output
+
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - testa:
+          requires:
+            - build 
+      - testb:
+          requires:
+            - build 
+      - deploy:
+          requires:
+            - testa
+            - testb
