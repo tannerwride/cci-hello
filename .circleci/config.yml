@@ -8,11 +8,11 @@ jobs:
       - checkout
       - run: cat ./hello.txt
       - run: |
-          if [[ $(cat ./hello.txt) == "Hi?" ]]; then
-            echo "Passed!";
+          if [[ $(cat hello.txt) == "Hi?" ]]; then
+            echo "It worked!";
           else
-            echo "Wrong text!"; exit 1
-          fi
+            echo "Nope!"; exit 1
+          fi 
 workflows:
   main-workflow:
     jobs:
