@@ -6,9 +6,9 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: MYVAR= cat ./hello.txt
+      - run: MYVAR= 'cat ./hello.txt'
       - run: |
-          if [[ $(cat ./hello.txt) == "Hi?" ]];
+          if [[ $MYVAR == "Hi?" ]];
           then
             echo "It worked!";
           else
