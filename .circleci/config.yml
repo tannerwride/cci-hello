@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          if [[ $(cat ./hello.txt) != "Hi?" ]];
+          if [[ $(cat ./hello.txt) == 123 ]];
           then
             echo "It worked!";
           else
