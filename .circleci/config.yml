@@ -6,6 +6,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: cat ./hello.txt
       - run: |
           if [[ $(cat ./hello.txt) == "How do you do?" ]]; then
             echo "Passed!";
