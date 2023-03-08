@@ -31,6 +31,9 @@ jobs:
           # Must be absolute path or relative path from working_directory
           at: my_workspace
 
+      - run: cd my_workspace
+      - run: ls
+
       - run: |
           # this will fail intentionally, we'll use SSH to debug and fix
           if [[ $(cat my_workspace/echo-output) == "Hello World" ]]; then
