@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run: cat ./hello.txt
       - run: |
-          if [[ $(cat ./hello.txt) == "How do you do?" ]]; then
+          if [[ $(cat ./hello) == "How do you do?" ]]; then
             echo "Passed!";
           else
             echo "Wrong text!"; exit 1
