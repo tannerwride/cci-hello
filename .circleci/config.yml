@@ -7,6 +7,7 @@ workflows:
   setup:
     jobs:
       - path-filtering/filter:
+          base-revision: dynamic-config
           mapping: |
             patha/.* run-path-a true
             pathb/.* run-path-b true
