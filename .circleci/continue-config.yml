@@ -19,13 +19,13 @@ jobs:
     steps:
       - checkout
       - run: echo "Running job a"
-      - run: cat path_a/README.md
+      - run: cat patha/pathatext
   job_b:
     executor: base
     steps:
       - checkout
       - run: echo "running job b"
-      - run: cat path_b/README.md
+      - run: cat pathb/pathbtext
 
 workflows:
   workflow-a:
