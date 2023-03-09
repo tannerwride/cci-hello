@@ -13,6 +13,7 @@ jobs:
             patha/.* run-path-a true
             pathb/.* run-path-b true
           config-path: .circleci/continue-config.yml
+
 workflows:
   setup-workflow:
     jobs:
