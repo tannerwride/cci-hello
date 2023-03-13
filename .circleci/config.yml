@@ -90,7 +90,7 @@ workflows:
     when: <<pipeline.parameters.approval>>
     jobs:
       - build-a
-      - build-b:
+      - build-b
       - test-a:
           requires:
             - build-b
