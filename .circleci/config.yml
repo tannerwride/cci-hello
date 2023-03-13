@@ -4,6 +4,11 @@ executors:
     docker:
       - image: cimg/base:stable
     resource_class: small
+
+parameters:
+  sequential:
+    type: boolean
+    default: false
 jobs: 
   build-a:
     executor: basic
@@ -20,9 +25,49 @@ jobs:
       - run:
           name: Test A
           command: echo "this is a test job"
+
+  test-b:
+    executor: basic
+    steps:
+      - checkout
+      - run:
+          name: Test B
+          command: echo "this is another test job"
+
+  deploy-a:
+    executor: basic
+    steps:
+      - checkout
+      - run:
+          name: Deploy A
+          command: echo "this is a deploy job"
 workflows:
-  main-workflow:
+  fan-workflow:
     jobs:
       - build-a
-      - test-a
-          
+      - test-a:
+          requires:
+            - build-a
+      - test-b:
+          requires:
+            - build-a 
+      - deploy-a:
+          requires:
+            - test-a
+            - test-b
+  sequential:
+    when: <<pipeline.parameter.sequential>>
+    jobs:
+      - build-a
+      - build-b:
+          requires:
+            - build-a
+      - test-a:
+          requires:
+            - build-a
+            - build-b
+      - test-b:
+          requires:
+            - build-a
+            - build-b
+            - test-a
