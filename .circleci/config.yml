@@ -17,6 +17,13 @@ jobs:
       - run: 
           name: Build A
           command: echo "hello"
+  build-b:
+    executor: basic
+    steps:
+      - checkout
+      - run: 
+          name: Build B
+          command: echo "This is another build job"
 
   test-a:
     executor: basic
