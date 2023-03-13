@@ -9,6 +9,9 @@ parameters:
   sequential:
     type: boolean
     default: false
+  approval:
+    type: boolean
+    default: false
 jobs: 
   build-a:
     executor: basic
@@ -50,6 +53,10 @@ jobs:
           command: echo "this is a deploy job"
 workflows:
   fan-workflow:
+    when: 
+      not: 
+        - <<pipeline.parameters.approval>> 
+        - <<pipeline.parameters.sequential>>
     jobs:
       - build-a
       - test-a:
@@ -75,6 +82,26 @@ workflows:
       - test-b:
           requires:
             - test-a
+      - deploy-a:
+          requires:
+            - test-b
+  approval-workflow:
+    when: <<pipeline.parameters.approval>>
+    jobs:
+      - build-a
+      - build-b:
+          requires:
+            - build-a
+      - test-a:
+          requires:
+            - build-b
+      - test-b:
+          requires:
+            - test-a
+      - hold-for-approval:
+          type: approval
+          requires:
+            - test-b
       - deploy-a:
           requires:
             - test-b
