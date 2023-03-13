@@ -56,7 +56,7 @@ workflows:
     when: 
       not:
         or:
-          - equal: [true, <<pipeline.parameters.sequential>> ]
+          - equal: [true, <<pipeline.parameters.sequential>>]
           - equal: [true, <<pipeline.parameters.approval>>]
     jobs:
       - build-a
@@ -91,14 +91,12 @@ workflows:
     jobs:
       - build-a
       - build-b:
-          requires:
-            - build-a
       - test-a:
           requires:
             - build-b
       - test-b:
           requires:
-            - test-a
+            - build-b
       - hold-for-approval:
           type: approval
           requires:
