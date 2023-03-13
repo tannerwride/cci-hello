@@ -1,19 +1,28 @@
 version: 2.1
-jobs: 
-  build:
+executors:
+  basic:
     docker:
       - image: cimg/base:stable
     resource_class: small
+jobs: 
+  build-a:
+    executor: basic
     steps:
       - checkout
-      - run: |
-          if [[ $(cat hello) == "123" ]]; then
-            echo "It worked!";
-          else
-            echo "Nope!"; exit 1
-          fi 
+      - run: 
+          name: Build A
+          command: echo "hello"
+
+  test-a:
+    executor: basic
+    steps:
+      - checkout
+      - run:
+          name: Test A
+          command: echo "this is a test job"
 workflows:
   main-workflow:
     jobs:
-      - build 
+      - build-a
+      - test-a
           
