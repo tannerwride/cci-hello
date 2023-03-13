@@ -55,7 +55,7 @@ workflows:
           requires:
             - test-a
             - test-b
-  sequential:
+  sequentialr-workflow:
     when: <<pipeline.parameter.sequential>>
     jobs:
       - build-a
