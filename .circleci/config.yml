@@ -104,4 +104,4 @@ workflows:
             - test-b
       - deploy-a:
           requires:
-            - test-b
+            - hold-for-approval
