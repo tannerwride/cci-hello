@@ -54,7 +54,9 @@ jobs:
 workflows:
   fan-workflow:
     when: 
-      not: [ <<pipeline.parameters.approval>>, <<pipeline.parameters.sequential>> ]
+      or:
+        - not: <<pipeline.parameters.approval>>
+        - not: <<pipeline.parameters.sequential>>
     jobs:
       - build-a
       - test-a:
