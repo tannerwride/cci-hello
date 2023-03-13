@@ -71,10 +71,10 @@ workflows:
             - build-a
       - test-a:
           requires:
-            - build-a
             - build-b
       - test-b:
           requires:
-            - build-a
             - build-b
-            - test-a
+      - deploy-a:
+          requires:
+            - test-b
