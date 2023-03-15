@@ -1,106 +1,17 @@
 version: 2.1
-executors:
-  basic:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
 
-parameters:
-  sequential:
-    type: boolean
-    default: false
-  approval:
-    type: boolean
-    default: false
 jobs: 
   build-a:
-    executor: basic
+    executor: tannerwride/runtannerrun
     steps:
       - checkout
       - run: 
           name: Build A
           command: echo "hello"
-  build-b:
-    executor: basic
-    steps:
-      - checkout
-      - run: 
-          name: Build B
-          command: echo "This is another build job"
 
-  test-a:
-    executor: basic
-    steps:
-      - checkout
-      - run:
-          name: Test A
-          command: echo "this is a test job"
-
-  test-b:
-    executor: basic
-    steps:
-      - checkout
-      - run:
-          name: Test B
-          command: echo "this is another test job"
-
-  deploy-a:
-    executor: basic
-    steps:
-      - checkout
-      - run:
-          name: Deploy A
-          command: echo "this is a deploy job"
+  
 workflows:
-  fan-workflow:
-    when: 
-      not:
-        or:
-          - equal: [true, <<pipeline.parameters.sequential>>]
-          - equal: [true, <<pipeline.parameters.approval>>]
+  workflow:]
     jobs:
       - build-a
-      - test-a:
-          requires:
-            - build-a
-      - test-b:
-          requires:
-            - build-a 
-      - deploy-a:
-          requires:
-            - test-a
-            - test-b
-  sequential-workflow:
-    when: <<pipeline.parameters.sequential>>
-    jobs:
-      - build-a
-      - build-b:
-          requires:
-            - build-a
-      - test-a:
-          requires:
-            - build-b
-      - test-b:
-          requires:
-            - test-a
-      - deploy-a:
-          requires:
-            - test-b
-  approval-workflow:
-    when: <<pipeline.parameters.approval>>
-    jobs:
-      - build-a
-      - build-b
-      - test-a:
-          requires:
-            - build-b
-      - test-b:
-          requires:
-            - build-b
-      - hold-for-approval:
-          type: approval
-          requires:
-            - test-b
-      - deploy-a:
-          requires:
-            - hold-for-approval
+     
