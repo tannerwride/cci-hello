@@ -1,10 +1,11 @@
 version: 2.1
 executors:
-  docker:
-    - image: cimg/base:stable
+  my-executor:
+    docker:
+      - image: cimg/base:stable
 jobs: 
   build-a:
-    executor: base
+    executor: my-executor
     steps:
       - checkout
       - setup_remote_docker:
