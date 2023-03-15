@@ -1,14 +1,17 @@
 version: 2.1
-
+executors:
+  docker:
+    - image: cimg/base:stable
 jobs: 
   build-a:
-    executor: tannerwride/runtannerrun
+    executor: base
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: 
           name: Build A
           command: echo "hello"
-
   
 workflows:
   workflow:
