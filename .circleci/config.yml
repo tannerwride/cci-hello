@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: false
       - run: 
           name: Build A
           command: echo "hello"
@@ -17,5 +17,6 @@ jobs:
 workflows:
   workflow:
     jobs:
-      - build-a
+      - build-a:
+          context: cli-context
      
