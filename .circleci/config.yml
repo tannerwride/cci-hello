@@ -12,7 +12,7 @@ jobs:
           docker_layer_caching: false
       - run: 
           name: Build A
-          command: echo "hello"
+          command: echo $ORG_ID
   
 workflows:
   workflow:
