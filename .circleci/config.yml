@@ -3,12 +3,14 @@ jobs:
   build:
     docker:
       - image: cimg/base:stable
+    resource_class: small
     steps:
-      - run: echo "hi"
+      - run: echo $DEMO
 workflows:
   main:
     jobs:
-     - build
+     - build:
+         context: production
          
           
      
