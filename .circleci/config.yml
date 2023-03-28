@@ -1,20 +1,14 @@
 version: 2.1
-executors:
-  my-executor:
+jobs:
+  build:
     docker:
       - image: cimg/base:stable
-jobs: 
-  build-a:
-    executor: my-executor
     steps:
-      - checkout
-      - run: 
-          name: Build A
-          command: echo "hi"
-# workflows  
+      - run: echo "hi"
 workflows:
-  workflow:
+  main:
     jobs:
-      - build-a
+     - build
+         
           
      
