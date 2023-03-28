@@ -10,11 +10,11 @@ jobs:
       - checkout
       - run: 
           name: Build A
-          command: echo $ORG_ID
+          command: echo "hi"
 # workflows  
 workflows:
   workflow:
     jobs:
-      - build-a:
-          context: cli-context
+      - build-a
+          
      
