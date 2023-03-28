@@ -8,8 +8,6 @@ jobs:
     executor: my-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: false
       - run: 
           name: Build A
           command: echo $ORG_ID
