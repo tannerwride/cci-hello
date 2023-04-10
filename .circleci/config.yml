@@ -4,6 +4,7 @@ jobs:
   build-a:
     machine: true
     resource_class: tannerwride/dockerrunner
+    steps:
       - checkout
       - run: 
           name: Build A
