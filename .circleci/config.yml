@@ -2,12 +2,12 @@ version: 2.1
 
 jobs: 
   build-a:
-    executor: tannerwride/dockerrunner
-    steps:
+    machine: true
+    resource_class: tannerwride/dockerrunner
       - checkout
       - run: 
           name: Build A
-          command: echo "hello"
+          command: echo "hello from a runner!"
 
   
 workflows:
