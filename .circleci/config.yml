@@ -14,6 +14,6 @@ jobs:
             docker push tannerdemoapp.azurecr.io/tannerdemoapp:latest
 
 workflows:
-  build-and-push
+  build-and-push-workflow:
     jobs: 
       - build-and-push
