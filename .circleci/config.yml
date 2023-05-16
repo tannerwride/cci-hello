@@ -16,6 +16,6 @@ jobs:
 workflows:
   build-and-push-workflow:
     jobs: 
-      - build-and-push
+      - build-and-push:
           context: azure
             
