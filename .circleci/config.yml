@@ -9,6 +9,7 @@ jobs:
       - run:
           command: |
             go test
+            gotestsum
       - run: 
           name: Build and Push Image
           command: | 
