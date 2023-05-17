@@ -1,10 +1,13 @@
 version: 2.1
 jobs:
-  build-and-push:
+  test-and-build:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
+      - run:
+          command: |
+            go test
       - setup_remote_docker
       - run: 
           name: Build and Push Image
@@ -16,7 +19,7 @@ jobs:
 workflows:
   build-and-push-workflow:
     jobs: 
-      - build-and-push:
+      - test-and-build:
           context: azure
           filters:
             branches: 
