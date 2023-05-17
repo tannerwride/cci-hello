@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   test-and-build:
-    docker:
-      - image: cimg/go:1.20.4
+    machine:
+      image: ubuntu-2004:current
     steps:
       - checkout
       - run:
@@ -13,15 +13,11 @@ jobs:
           name: Build and Push Image
           command: | 
             docker build -t tannerdemoapp.azurecr.io/tannerdemoapp:latest .
-            docker login -u $ACR_USER -p $ACR_PASS tannerdemoapp.azurecr.io
-            docker push tannerdemoapp.azurecr.io/tannerdemoapp:latest
-
+            
 workflows:
   build-and-push-workflow:
     jobs: 
       - test-and-build:
           context: azure
-          filters:
-            branches: 
-              only: remote-docker
+          
             
