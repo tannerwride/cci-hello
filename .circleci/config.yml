@@ -5,6 +5,7 @@ jobs:
       image: ubuntu-2004:current
     steps:
       - checkout
+      - run: apt list --installed
       - run:
           command: |
             go test
