@@ -10,7 +10,8 @@ jobs:
     executor: basic
     parameters:
       word:
-        type: string
+        type: enum
+        enum: ["hello", "Hello, there", "How do you do?"]
         default: "hello"
     steps:
       - checkout
@@ -22,5 +23,9 @@ workflows:
   matrix-workflow:
     jobs:
       - build-a:
+          name: Hello, there
           word: "Hello, there"
+      - build-a:
+          name: Hello
+          word: "hello"
   
