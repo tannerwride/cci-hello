@@ -23,9 +23,7 @@ workflows:
   matrix-workflow:
     jobs:
       - build-a:
-          name: Hello, there
-          word: "Hello, there"
-      - build-a:
-          name: Hello
-          word: "hello"
+          matrix:
+            parameters:
+              word: ["hello", "Hello, there", "How do you do?"]
   
