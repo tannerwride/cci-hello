@@ -21,5 +21,6 @@ jobs:
 workflows:
   matrix-workflow:
     jobs:
-      - build-a
+      - build-a:
+          word: "Hello, there"
   
