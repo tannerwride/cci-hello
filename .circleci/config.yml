@@ -4,7 +4,16 @@ executors:
     docker:
       - image: cimg/base:stable
     resource_class: small
-
+commands:
+  job-type:
+    description: "name the type ofjob"
+    parameters:
+      job-type:
+        type: enum
+        enum: ["build", "test", "deploy"]
+        default: "build"
+    steps:
+      - run: echo This is a <<parameters.job-type>> job
 parameters:
   sequential:
     type: boolean
@@ -16,10 +25,8 @@ jobs:
   build-a:
     executor: basic
     steps:
-      - checkout
-      - run: 
-          name: Build A
-          command: echo "hello"
+      - job-type:
+          job-type: "build"
   build-b:
     executor: basic
     steps:
