@@ -30,34 +30,26 @@ jobs:
   build-b:
     executor: basic
     steps:
-      - checkout
-      - run: 
-          name: Build B
-          command: echo "This is another build job"
+      - job-type:
+          job-type: "build"
 
   test-a:
     executor: basic
     steps:
-      - checkout
-      - run:
-          name: Test A
-          command: echo "this is a test job"
-
+      - job-type:
+          job-type: "test"
+        
   test-b:
     executor: basic
     steps:
-      - checkout
-      - run:
-          name: Test B
-          command: echo "this is another test job"
+      - job-type:
+          job-type: "test"
 
   deploy-a:
     executor: basic
     steps:
-      - checkout
-      - run:
-          name: Deploy A
-          command: echo "this is a deploy job"
+      - job-type:
+          job-type: "deploy"
 workflows:
   fan-workflow:
     when: 
