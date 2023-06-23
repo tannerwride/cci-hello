@@ -9,8 +9,7 @@ executors:
       image: ubuntu-2004:202010-01
 
 jobs: 
-  build-a:
-    
+  build:
     parameters:
       word:
         type: enum
@@ -29,7 +28,7 @@ jobs:
 workflows:
   matrix-workflow:
     jobs:
-      - build-a:
+      - build:
           matrix:
             parameters:
               word: ["hello", "Hello, there", "How do you do?"]
