@@ -4,15 +4,22 @@ executors:
     docker:
       - image: cimg/base:stable
     resource_class: small
+  linux:
+    machine:
+      image: ubuntu-2004:202010-01
 
 jobs: 
   build-a:
-    executor: basic
+    
     parameters:
       word:
         type: enum
         enum: ["hello", "Hello, there", "How do you do?"]
         default: "hello"
+      os:
+        type: executor
+        default: basic
+    executor: <<parameters.os>>
     steps:
       - checkout
       - run: 
@@ -26,4 +33,5 @@ workflows:
           matrix:
             parameters:
               word: ["hello", "Hello, there", "How do you do?"]
+              os: ["basic"]
   
